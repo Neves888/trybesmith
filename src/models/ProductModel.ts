@@ -5,19 +5,21 @@ import { IProduct } from '../interfaces/IProduct';
 export default class ProductRegistrationModel {
   private connection = mysql;
 
-  public async create(products: IProduct): 
-  Promise<IProduct> {
+  async create(products: IProduct): Promise<IProduct> {
     const { name, amount } = products;
+    const [{ insertId }] = await this.connection.execute<ResultSetHeader>(
+      'INSERT INTO Trybesmith.Products (name, amount) VALUES (?, ?)',
+      [name, amount],
+    );
 
-    const tableProduct = 'INSERT INTO Trybesmith.Products (name, amount) VALUES (?, ?)';
-
-    const [{ insertId }] = await this.connection
-      .execute<ResultSetHeader>(tableProduct, [name, amount]);
-
-    return { id: insertId, ...products };
+    const NewProduct = { 
+      id: insertId, 
+      ...products,
+    };
+    return NewProduct;
   }
 
-  public async getAll(): Promise<IProduct[]> {
+  async findAll(): Promise<IProduct[]> {
     const tableAllProducts = 'SELECT * FROM Trybesmith.Products';
     const [result] = await this.connection.execute<IProduct[] & RowDataPacket[]>(tableAllProducts);
 

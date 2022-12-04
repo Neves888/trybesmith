@@ -1,12 +1,12 @@
 import { Router } from 'express';
 
-import ProductRegistrationController from '../controllers/productControler';
-import validation from '../middlewares/validation';
+import PoductRegistrationController from '../controllers/productController';
+// import validation from '../middlewares/validation';
 
 const router = Router();
-const productControler = new ProductRegistrationController();
+const productControler = new PoductRegistrationController();
 
-router.post('/', validation, productControler.create.bind(productControler));
-router.get('/', productControler.getAll.bind(productControler));
+router.post('/', (req, res) => productControler.create(req, res));
+router.get('/', (req, res) => productControler.findAll(req, res));
 
 export default router;
