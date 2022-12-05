@@ -2,11 +2,11 @@ import { Request, Response } from 'express';
 import OrderService from '../services/ordersService';
 
 export default class OrdersController {
-  ordersProduct = new OrderService();
+  orderService = new OrderService();
 
-  async findAll(_req: Request, res: Response): Promise<void> {
-    const ordersList = await this.ordersProduct.findAll();
-
-    res.status(200).json(ordersList);
+  async findAll(_req: Request, res: Response) {
+    const { code, response } = await this.orderService.findAll();
+    if (code) return res.status(code as unknown as number).json({ message: response });
+    res.status(200).json(response);
   }
 }

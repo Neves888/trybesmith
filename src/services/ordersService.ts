@@ -1,12 +1,11 @@
-import { IOrders } from '../interfaces/IOrders';
+import { IResponse } from '../interfaces/IResponse';
 import OrdersModel from '../models/ordersModel';
 
 export default class OrdersService {
-  ordersProducts = new OrdersModel();
+  orderModel = new OrdersModel();
 
-  async findAll(): Promise<IOrders[]> {
-    const ordersList = await this.ordersProducts.findAll();
-
-    return ordersList;
+  async findAll(): Promise<IResponse> {
+    const ordersList = await this.orderModel.findAll();
+    return { code: null, response: ordersList };
   }
 }
