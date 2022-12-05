@@ -17,9 +17,9 @@ export default class OrdersService {
   async createOrder(body: ICreateOrder): Promise<IResponse> {
     const { productsIds, user } = body;
     const { code, response } = verifyProductIds(productsIds);
-    if (code) return { code, response };   
+    if (code) return { code, response };
     const userId = await this.orderModel.createOrder(user);
-    await Promise.all(productsIds.map((productId) => 
+    await Promise.all(productsIds.map((productId) =>
       this.productModel.updateOrderId(userId, productId)));
     return { code: null, response: { userId: user.id, productsIds } };
   }
