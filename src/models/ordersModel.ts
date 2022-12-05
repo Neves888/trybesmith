@@ -1,5 +1,6 @@
-import { RowDataPacket } from 'mysql2';
+import { ResultSetHeader, RowDataPacket } from 'mysql2';
 import { IOrders } from '../interfaces/IOrders';
+import { IUser } from '../interfaces/IUser';
 import mysql from './connection';
 
 export default class OdersModel {
@@ -15,5 +16,11 @@ export default class OdersModel {
     const [result] = await this.connection.execute<IOrders[] & RowDataPacket[]>(ordersProducts);
 
     return result;
+  }
+
+  async createOrder(body: IUser): Promise<number> {
+    const orderTable = 'INSERT INTO Trybesmith.Orders (userId) VALUES (?)';
+    const [{ insertId }] = await this.connection.execute<ResultSetHeader>(orderTable, [body.id]);
+    return insertId;
   }
 }

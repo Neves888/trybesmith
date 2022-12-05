@@ -23,4 +23,9 @@ export default class ProductRegistrationModel {
 
     return result;
   }
+
+  async updateOrderId(userId: number, productId: number): Promise<void> {
+    const updateOrderId = 'UPDATE Trybesmith.Products SET orderId = ? WHERE id = ?';
+    await this.connection.execute(updateOrderId, [userId, productId]); 
+  }
 }

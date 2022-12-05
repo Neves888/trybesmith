@@ -1,5 +1,6 @@
 import 'dotenv/config';
 import jwt from 'jsonwebtoken';
+import { IResponse } from '../interfaces/IResponse';
 import { IUser } from '../interfaces/IUser';
 
 export function signToken(user: IUser): string {
@@ -11,7 +12,7 @@ export function signToken(user: IUser): string {
   });
 }
 
-export function verifyToken(token: string): string | jwt.JwtPayload {
+export function verifyToken(token: string): IResponse {
   if (!token) return { code: 401, response: 'Token not found' };
 
   try {

@@ -9,4 +9,10 @@ export default class OrdersController {
     if (code) return res.status(code as unknown as number).json({ message: response });
     res.status(200).json(response);
   }
+
+  async createOrder(req: Request, res: Response) {
+    const { code, response } = await this.orderService.createOrder(req.body);
+    if (code) return res.status(code as unknown as number).json({ message: response });
+    res.status(201).json(response);
+  }
 }
