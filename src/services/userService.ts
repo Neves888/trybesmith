@@ -11,7 +11,8 @@ export default class UserService {
     const { code, response } = userValidation(body);
     if (code) return { code, response };
     const insertId = await this.userModel.create(body);
-    const token = signToken({ id: insertId, ...body });
+    const { password, ...userWithoutPassword } = body;
+    const token = signToken({ id: insertId, ...userWithoutPassword });
     return { code: null, response: { token } };
   }
 }

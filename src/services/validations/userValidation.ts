@@ -1,39 +1,26 @@
 import Joi from 'joi';
 import { IUser } from '../../interfaces/IUser';
 
-const usernameRequired = '"username" is required';
-const usernameString = '"username" must be a string';
-const usernameLength = '"username" length must be at least 3 characters long';
-const classeRequired = '"classe" is required';
-const classeString = '"classe" must be a string';
-const classeLength = '"classe" length must be at least 3 characters long';
-const levelRequired = '"level" is required';
-const levelNumber = '"level" must be a number';
-const levelLength = '"level" must be greater than or equal to 1';
-const passwordRequired = '"password" is required';
-const passwordString = '"password" must be a string';
-const passwordLength = '"password" length must be at least 8 characters long';
-
 const joiValidation = Joi.object({
-  username: Joi.string().min(2).required().messages({
-    'any.required': usernameRequired,
-    'string.base': usernameString,
-    'string.min': usernameLength,
+  username: Joi.string().min(3).required().messages({
+    'any.required': '"username" is required',
+    'string.base': '"username" must be a string',
+    'string.min': '"username" length must be at least 3 characters long',
   }),
-  classe: Joi.string().min(2).required().messages({
-    'any.required': classeRequired,
-    'string.base': classeString,
-    'string.min': classeLength,
+  classe: Joi.string().min(3).required().messages({
+    'any.required': '"classe" is required',
+    'string.base': '"classe" must be a string',
+    'string.min': '"classe" length must be at least 3 characters long',
   }),
   level: Joi.number().min(1).required().messages({
-    'any.required': levelRequired,
-    'number.base': levelNumber,
-    'number.min': levelLength,
+    'any.required': '"level" is required',
+    'number.base': '"level" must be a number',
+    'number.min': '"level" must be greater than or equal to 1',
   }),
   password: Joi.string().min(8).required().messages({
-    'any.required': passwordRequired,
-    'string.base': passwordString,
-    'string.min': passwordLength,
+    'any.required': '"password" is required',
+    'string.base': '"password" must be a string',
+    'string.min': '"password" length must be at least 8 characters long',
   }),
 });
 
