@@ -1,15 +1,14 @@
+import { IResponse } from '../interfaces/IResponse';
+import { IUser } from '../interfaces/IUser';
 import UserModel from '../models/userModel';
+import { signToken } from '../utils/jwt';
 
 export default class UserService {
-  loginUser = new UserModel();
+  userModel = new UserModel();
 
-  async create(
-    username: string, 
-    classe: string, 
-    level: number, 
-    password: string,
-  ): Promise<number> {
-    const createUser = await this.loginUser.create(username, classe, level, password);
-    return createUser;
+  async create(body: IUser): Promise<IResponse> {
+    const insertId = await this.userModel.create(body);
+    const token = signToken({ id: insertId, ...body });
+    return { code: null, response: { token } };
   }
 }
