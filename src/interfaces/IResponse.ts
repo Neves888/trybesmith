@@ -1,3 +1,3 @@
 export interface IResponse {
-  [key: string]: object | null | number
+  [key: string]: object | null | number | string
 }
